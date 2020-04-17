@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NewAmsterdamHospital.Models.MedicalRecord>
+
+@{
+    ViewBag.Title = "Recordings";
+}
+<h2>Recordings</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorSpecialty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailCustomer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfChange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Record)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorSpecialty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailCustomer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfChange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Record)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@using (Html.BeginForm())
+{
+     <div class="form-group">
+        <lable class="control-label col-md-2">Medical record </lable>
+        <div class="col-md-offset-2 col-md-10">
+           <p> <textarea name="MedicalRecord" cols="40" rows="3"></textarea></p>
+        </div>
+    </div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</div>
+}
+   
+<a href="@Url.Action("Index","Doctor")">
+    <input type="submit" value="Cancel" class="btn btn-default" />
+</a>

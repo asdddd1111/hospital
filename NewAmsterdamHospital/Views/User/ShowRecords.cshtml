@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NewAmsterdamHospital.Models.MedicalRecord>
+
+@{
+    ViewBag.Title = "ShowRecords";
+}
+
+<h2>Show Records</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorSpecialty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfChange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Record)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorSpecialty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfChange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Record)
+        </td>
+    </tr>
+}
+
+</table>
+<a href="@Url.Action("Index","User")">
+    <input type="submit" value="Cancel" class="btn btn-default" />
+</a>

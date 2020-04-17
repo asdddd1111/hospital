@@ -1,0 +1,14 @@
+﻿@model NewAmsterdamHospital.ViewModels.DataForContactView
+@{
+    ViewBag.Title = "Contact Us";
+}
+<h2>@ViewBag.Title</h2>
+<h1> New Amsterdam Hospital</h1>
+<address>
+    @Model.Address<br/>
+    <abbr title="Phone">@Model.PhoneNumber</abbr>
+</address>
+<div>
+    <h2>Days. Evenings. Scheduling that works for you.</h2>
+    <p>@Model.WorkDaysWeek  @Model.StartWorkTime.ToString("t") - @Model.EndWorkTime.ToString("t") </p>
+</div>

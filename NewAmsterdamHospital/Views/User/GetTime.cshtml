@@ -1,0 +1,9 @@
+﻿
+@model IEnumerable<NewAmsterdamHospital.Models.Reception>
+<select id="time" name="Time">
+    <option value="-1">Time</option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.Id">@item.TimeName</option>
+    }
+</select>

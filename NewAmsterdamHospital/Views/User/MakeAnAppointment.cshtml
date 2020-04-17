@@ -1,0 +1,79 @@
+﻿@model NewAmsterdamHospital.ViewModels.AppointmentView
+
+@{
+    ViewBag.Title = "MakeAnAppointment";
+}
+
+<h2>Make An Appointment</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Specialty </label>
+
+            @Html.DropDownListFor(model => model.IdDoctorSpecialty, ViewBag.Specialties as SelectList, "Specialty", new { id = "specialty" })
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2"> Date </label>
+
+            @Html.DropDownListFor(model => model.DateId, ViewBag.Date as SelectList, "Date", new { id = "date" })
+
+            @Html.ValidationMessageFor(model => model.DateId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2"> Time </label>
+
+            @Html.DropDownListFor(model => model.TimeId, ViewBag.Time as SelectList, "Time", new { id = "time" })
+
+            @Html.ValidationMessageFor(model => model.TimeId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Ready" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+    <a href="@Url.Action("Index","User")">
+        <input type="submit" value="Cancel" class="btn btn-default" />
+    </a>
+@section scripts{
+    <script type="text/javascript">
+
+        $('#specialty').change(function()
+        {
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetDate")/' + id,
+                success: function (data) {
+                    $('#date').replaceWith(data);
+                    $('#date').change(function () {
+                        var id = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetTime")/' + id,
+                            success: function (data) {
+
+                                $('#time').replaceWith(data);
+
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

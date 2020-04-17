@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "PersonalAccount";
+}
+<script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+
+<h2>Number Of Users</h2>
+<div class="col-lg-6 col-md-6">
+    <div class="form-horizontal">
+        <div id="personList">
+            @Html.Partial("_numberOfUserPartial")
+        </div>
+
+        @Ajax.ActionLink(
+            "Refresh",
+            "Index",
+            new {},
+            new AjaxOptions(){HttpMethod = "GET", UpdateTargetId = "personList" },
+            new{@class = "btn btn-default"})
+
+
+
+    </div>
+</div>
+<div class="col-lg-6 col-md-6">
+    <div class="left">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("ShowListUser","Admin")">
+                    <input type="submit" value="List all users" class="btn btn-default" />
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="left">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("AddNewDoctor","Admin")">
+                    <input type="submit" value="Add doctor" class="btn btn-default" />
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="left">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("RedactMainPage","Admin")">
+                    <input type="submit" value="Edit Main Page" class="btn btn-default" />
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="left">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("RedactContact","Admin")">
+                    <input type="submit" value="Edit Contact" class="btn btn-default" />
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

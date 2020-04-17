@@ -1,0 +1,43 @@
+﻿@using System.Security.Principal
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="nav navbar-nav navbar-right">
+
+    @if (User.IsInRole("admin"))
+    {
+        <li>
+            @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "Admin", routeValues: null, htmlAttributes: new { title = "Admin" })
+
+        </li>
+    }
+    else
+    {
+        if (User.IsInRole("doctor"))
+        {
+            <li>
+            @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "Doctor", routeValues: null, htmlAttributes: new { title = "Doctor" })
+            </li>        
+                }
+        else
+        {
+            <li>
+                @Html.ActionLink("Hello, " + User.Identity.Name + "!", "Index", "User", routeValues: null, htmlAttributes: new { title = "User" })
+            </li>
+        }
+    }
+    <li><a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
+
+</ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Registration", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Sign in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
