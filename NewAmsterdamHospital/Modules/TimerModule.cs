@@ -1,38 +1,40 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web;
+
 
 namespace NewAmsterdamHospital.Modules
 {
     public class TimerModule : IHttpModule
     {
         static Timer timer;
-        readonly long interval = 604800000;
-        readonly object synclock = new object();
+        long interval = 30000; 
+        static object synclock = new object();
         static bool sent = false;
-        readonly int saturday = 6;
+
         public void Init(HttpApplication app)
         {
-            timer = new Timer(new TimerCallback(ChangeRecords), null, 0, interval);
+            timer = new Timer(new TimerCallback(SendEmail), null, 0, interval);
         }
-        private void ChangeRecords(object obj)
+
+        private void SendEmail(object obj)
         {
             lock (synclock)
             {
                 DateTime dd = DateTime.Now;
-                if ((int)dd.DayOfWeek== saturday && sent == false)
+                if (dd.DayOfWeek==DayOfWeek.Saturday&&dd.Hour == 13 && dd.Minute == 20 && sent == false)
                 {
                     Models.UserContext db = new Models.UserContext();
-                    foreach (var item in db.DoctorSpecialties)
+                    foreach (var list in db.DoctorSpecialties)
                     {
-                        Service.ScheduleForDoctor.Add(item.Id,db.DateReceptions.Where(x=>x.DoctorSpecialtyId==item.Id).Max(y=>y.Date));
+                        Service.ScheduleForDoctor.Add(list.Id, db.DateReceptions.Where(x => x.DoctorSpecialtyId == list.Id).Max(y => y.Date).AddDays(1));
                     }
-                    
+
                     sent = true;
                 }
-                else if ((int)dd.DayOfWeek != saturday)
+                else if (dd.DayOfWeek!=DayOfWeek.Saturday &&dd.Hour != 20 && dd.Minute != 0)
                 {
                     sent = false;
                 }
