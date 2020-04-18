@@ -27,14 +27,12 @@
 
             @Html.DropDownListFor(model => model.DateId, ViewBag.Date as SelectList, "Date", new { id = "date" })
 
-            @Html.ValidationMessageFor(model => model.DateId, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <label class="control-label col-md-2"> Time </label>
 
             @Html.DropDownListFor(model => model.TimeId, ViewBag.Time as SelectList, "Time", new { id = "time" })
 
-            @Html.ValidationMessageFor(model => model.TimeId, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
