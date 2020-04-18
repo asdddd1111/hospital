@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<NewAmsterdamHospital.Models.DateReception>
-<select  id="date" name="Date">
-    <option value="-1">Date</option>
+<select  id="date" name="Date" required>
+    <option value="">Date</option>
     @foreach (var item in Model)
     {
         <option value="@item.Id">@item.DateName</option>
